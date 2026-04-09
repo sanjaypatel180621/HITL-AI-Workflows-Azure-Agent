@@ -1,94 +1,77 @@
-![alt text](docs/media/image-1.png)
-# Microsoft AI Agentic Workshop Repository  
-  
-Welcome to the official repository for the Microsoft AI Agentic Workshop! This repository provides all the resources, code, and documentation you need to explore, prototype, and compare various agent-based AI solutions using Microsoft's leading AI technologies.  
-  
----  
-  
-## Quick Links  
-  
-- [Business Scenario and Agent Design](./SCENARIO.md)  
-- [Getting Started (Setup Instructions)](./SETUP.md)  
-- [System Architecture Overview](./ARCHITECTURE.md)  
-- [Data Sets](./DATA.md)  
-- [APIM + MCP Security (Optional)](./mcp/MULTI_TENANT_MCP_SECURITY.md)  
-- [Code of Conduct](./CODE_OF_CONDUCT.md)  
-- [Security Guidelines](./SECURITY.md)  
-- [Support](./SUPPORT.md)  
-- [License](./LICENSE)  
-  
----  
-  
-## What You Can Do With This Workshop  
-  
-- **Design and prototype agent solutions** for real-world business scenarios.  
-- **Compare single-agent vs. multi-agent** architectures and approaches.  
-- **Develop and contrast agent implementations** using different platforms:  
-  - **[Microsoft Agent Framework](https://github.com/microsoft/agent-framework)** (NEW!) - Microsoft's latest agentic AI framework with advanced multi-agent orchestration (Magentic workflows, handoffs, checkpointing)  
-  - Azure AI Agent Service  
-  - Semantic Kernel  
-  - Autogen  
-  
----  
-  
-## Key Features  
-  
-- **🎯 Microsoft Agent Framework Support (NEW!):** Full integration with [Microsoft's Agent Framework](https://github.com/microsoft/agent-framework) featuring:
-  - **Now available via pip!** Install with: `pip install agent-framework` or `uv add agent-framework`
-  - **Single-agent** with MCP tools and streaming token-by-token responses
-  - **Multi-agent Magentic orchestration** with intelligent task delegation and progress tracking
-  - **Handoff-based multi-domain agents** for specialized task routing with smart context transfer
-  - **Checkpointing and resumable workflows** for long-running agentic tasks
-  - **Real-time WebSocket streaming** with internal agent process visibility
-  - 📚 **[See detailed pattern guide and documentation →](agentic_ai/agents/agent_framework/README.md)**
-  
-- **🖥️ Advanced UI Options:**  
-  - **React Frontend:** Real-time streaming visualization with agent internal processes, tool calls, orchestrator planning, and turn-by-turn history tracking
-  - **Streamlit Frontend:** Simple, elegant chat interface for quick prototyping and demos
+# HITL AI Workflows Azure Agent
 
-- **🔄 Workflow Orchestration (NEW!):** Enterprise-grade workflow capabilities with [comprehensive orchestration patterns](agentic_ai/workflow/):
-  - **Pregel-style execution engine** for complex multi-agent coordination
-  - **Type-safe messaging** with runtime contract enforcement
-  - **Checkpointing & resume** for long-running workflows
-  - **Human-in-the-loop** approval patterns with RequestInfoExecutor
-  - **Control flow patterns**: Switch/case routing, fan-out/fan-in, conditional edges
-  - **Real-time observability**: OpenTelemetry tracing, event streaming, WebSocket updates
-  - 🎯 **[Featured Demo: Fraud Detection System](agentic_ai/workflow/fraud_detection/)** - Production-ready workflow with React dashboard
-  
-- **Configurable LLM Backend:** Use the latest Azure OpenAI GPT models (e.g., GPT-5, GPT-4.1, GPT-4o).  
-- **MCP Server Integration:** Advanced tools to enhance agent orchestration and capabilities with Model Context Protocol.  
-- **A2A (Agent-to-Agent) Protocol Support:** Enables strict cross-domain, black-box multi-agent collaboration using [Google's A2A protocol](https://github.com/google-a2a/A2A). [Learn more &rarr;](agentic_ai/agents/semantic_kernel/multi_agent/a2a).  
-- **Durable Agent Pattern:** Includes a demo of a robust agent that persists its state, survives restarts, and manages long-running workflows. [Learn more &rarr;](agentic_ai/scenarios/durable_agent/README.md)  
-- **Flexible Agent Architecture:**  
-  - Supports single-agent, multi-agent, or reflection-based agents (selectable via `.env`).  
-  - Agents can self-loop, collaborate, reflect, or take on dynamic roles as defined in modules.  
-  - Multiple frameworks: Agent Framework, Autogen, Semantic Kernel, Azure AI Agent Service.  
-- **Session-Based Chat:** Persistent conversation history for each session.  
-- **Full-Stack Application:**  
-  - FastAPI backend with WebSocket and RESTful endpoints (chat, reset, history, etc.).  
-  - Choice of frontend: React (advanced streaming visualization) or Streamlit (simple chat).  
-- **Environment-Based Configuration:** Easily configure the system using `.env` files.  
-  
----  
-  
-## Getting Started  
-  
-1. Review the [Setup Instructions](./SETUP.md) for environment prerequisites and step-by-step installation.  
-2. Explore the [Business Scenario and Agent Design](./SCENARIO.md) to understand the workshop challenge.  
-3. Check out the **[Agent Framework Implementation Patterns](agentic_ai/agents/agent_framework/README.md)** to choose the right multi-agent approach (single-agent, Magentic orchestration, or handoff pattern).
-4. Try the **[Fraud Detection Workflow Demo](agentic_ai/workflow/fraud_detection/)** to see enterprise orchestration patterns in action.
-5. Dive into [System Architecture](./ARCHITECTURE.md) before building and customizing your agent solutions.  
-6. Utilize the [Support Guide](./SUPPORT.md) for troubleshooting and assistance.  
-  
----  
-  
-## Contributing  
-  
-Please review our [Code of Conduct](./CODE_OF_CONDUCT.md) and [Security Guidelines](./SECURITY.md) before contributing.  
-  
----  
-  
-## License  
-  
-This project is licensed under the terms described in the [LICENSE](./LICENSE) file.  
-  
+![Implementing Enterprise Fraud Detection with Human-in-the-Loop AI](https://github.com/sanjaypatel180621/HITL-AI-Workflows-Azure-Agent/blob/main/Implementing%20Enterprise%20Fraud%20Detection%20with%20Human-in-the-Loop%20AI.PNG?raw=true)
+
+This Human-in-the-Loop (HITL) AI Workflows with Azure Agent Framework which is explore the Contoso Fraud Detection & Response Workflow, where AI agents analyze suspicious activity and route high-risk actions to human analysts for review, using a real-time React + FastAPI dashboard for monitoring and interaction.
+
+
+## 🔧 Environment Configuration
+
+Create a `.env` file in the project root and add the following values:
+
+### **Azure OpenAI Configuration**
+```python
+## Replace the value of AZURE_OPENAI_API_KEY and AZURE_OPENAI_ENDPOINT with the actual values
+# Azure OpenAI Configuration
+AZURE_OPENAI_API_KEY=----
+AZURE_OPENAI_CHAT_DEPLOYMENT=gpt-4.1-mini
+AZURE_OPENAI_ENDPOINT=https://agent----.openai.azure.com/
+AZURE_OPENAI_API_VERSION=2024-10-01-preview
+
+# MCP Server Configuration
+MCP_SERVER_URI=http://localhost:8000/mcp
+
+```
+
+### Start All Services (3 terminals):
+
+**Terminal 1 - MCP Server**
+```python
+cd mcp
+uv run mcp_service.py
+```
+
+**Terminal 2 - FastAPI Backend:**
+```python
+cd agentic_ai/workflow/fraud_detection
+uv run --prerelease allow backend.py
+```
+
+**Terminal 3 - React Frontend**
+```python
+cd agentic_ai/workflow/fraud_detection/ui
+npm run dev
+```
+
+**Next to Launch the APP**
+```text
+ctrl + click on http://localhost:3000 to open the application in a browser
+```
+
+**View the Real-Time Workflow Visualizer UI**
+![Implementing Enterprise Fraud Detection with Human-in-the-Loop AI](https://github.com/sanjaypatel180621/HITL-AI-Workflows-Azure-Agent/blob/main/Implementing%20Enterprise%20Fraud%20Detection%20with%20Human-in-the-Loop%20AI.PNG?raw=true)
+
+**List of sample alerts from the Select Alerts drop-down:**
+```text
+Belew is the way to interact with Visualizer
+
+1) Select Alert: from 3 sample alerts (ALERT-001, ALERT-002, ALERT-003)
+Click on Start Workflow (2) to begin processing
+
+2) Watch Live Updates: Nodes change color as executors run
+🔵 Blue = Running
+🟢 Green = Completed
+⚪ Gray = Idle
+
+3) Analyst Review: When high-risk fraud is detected, a review panel appears.
+
+4) Submit Decision: Choose action and add notes
+    Your Decision: If the severity is high, select Lock Account
+    Analyst notes: Enter High risk confirmed from all three analyses.
+    Immediate action: locking account to prevent unauthorized access.
+      -> Select SUBMIT WORKFLOW
+
+5) Monitor Events: The right panel shows the complete event stream.
+```
+
+Short Working Principle: This project is the **human-in-the-loop (HITL) workflow for fraud detection using the Azure Agent Framework**. You explored how AI agents analyze suspicious activity, route high-risk cases to human analysts, and interact with a real-time React + FastAPI dashboard to monitor workflow execution and submit decisions.
