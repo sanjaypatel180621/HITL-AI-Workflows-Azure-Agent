@@ -5,6 +5,69 @@
 This Human-in-the-Loop (HITL) AI Workflows with Azure Agent Framework which is explore the Contoso Fraud Detection & Response Workflow, where AI agents analyze suspicious activity and route high-risk actions to human analysts for review, using a real-time React + FastAPI dashboard for monitoring and interaction.
 
 
+## ✅ Pre-requisites  
+- Complete setup of MCP server, backend, and frontend  
+- Basic understanding of AI agents and multi-agent systems  
+
+---
+
+## 📖 Summary  
+This guide explains the architecture and workflow of the Microsoft AI Agentic Workshop, including how the components interact, available API endpoints, and best practices for deployment and experimentation.  
+
+---
+
+## 🏗️ Architecture Overview  
+
+### 🔹 1. Component Flow  
+
+The workshop follows this execution flow:  
+
+1. **Web UI (React or Streamlit):**  
+   Users interact with the system and submit prompts. A unique session ID is generated for each session.  
+
+2. **Backend (FastAPI):**  
+   Handles incoming requests (REST/WebSocket), manages sessions, maintains chat history, and routes requests to agents.  
+
+3. **Agent Layer (AGENT_MODULE-based):**  
+   Processes input using Azure OpenAI and optional MCP tools. Supports:
+   - Single-agent workflows  
+   - Multi-agent systems  
+   - Collaborative agent orchestration  
+
+4. **Chat History Management:**  
+   Stores conversation data per session for retrieval and analysis.  
+
+5. **WebSocket Streaming (React UI):**  
+   Streams real-time updates including:
+   - Agent reasoning steps  
+   - Tool execution  
+   - Orchestration planning  
+   - Token streaming  
+
+---
+
+### 🔹 2. Agent Types and Streaming  
+
+| Agent Type | Behavior |
+|------------|--------|
+| Agent Framework Agents | Real-time streaming via WebSocket |
+| AutoGen / Semantic Kernel | Full response via REST API |
+
+---
+
+## 🔌 API Endpoints  
+
+### 📡 FastAPI Backend  
+
+- **POST `/chat`**  
+  Request:
+  ```json
+  {
+    "session_id": "string",
+    "prompt": "string"
+  }
+
+
 ## 🔧 Environment Configuration
 
 Create a `.env` file in the project root and add the following values:
